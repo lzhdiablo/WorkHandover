@@ -1,0 +1,7 @@
+$productCatalog=yingerProductCatalog
+$productCatalogName=yinger Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+INSERT_UPDATE Category;code[unique=true];name[lang=zh];name[lang=en];showTypes(code)[default='NAVIGATION'];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
